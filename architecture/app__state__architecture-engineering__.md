@@ -9,8 +9,10 @@
 - 2: RPC websocket layer
 - 3: web-Client internal state/action API 
 
-# Model API: `sunspot`
+# Model API: `sunspot`  , `rangeYellow` , `Orange`  :: Redis / Lua /
 **early draft/sketch**
+
+_will enumerate the APIs separately ; they may largely mirror each other; it's not always obvious until the implementation requirement details are uncovered in the process of implementation actuale ._
 
 ## `sunspot`: admin API
 
@@ -41,8 +43,14 @@ _(context role: C is Commissioner, P is Player, U is generic user role) _
 - view lLeague state (variety of players and lines)
 - view results of some stages / lines
 
+- place bet on line under context of lLeague as (P)
+- edit bet on line "  "  "  " (P)
+- view results of this and that (assorted state requests amounting to no mutating action)
 
 
+# RPC API  `lumenVine`  `lumenGreen`,   ::  Primus / RPC / websocket /  Typescript / Node  :: API
+
+- 
 
 
 
