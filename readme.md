@@ -18,7 +18,9 @@
 _.project started march 23, 2016._
 This project reflects a client assignment to develop a sports wagering application for sports enthusiast communities.  Like MarchMadness tourney pool kind a thing but maybe oriented more towards Euro Footbal stuff like English Premier whatever.  
 
-The assignment stipulated stack requirements: Angular2 compatibility but with initial Angular-1.5 implementation, Typescript.  I decided to do initial work in Angular-2 then backtrack trying to lay Ng2 patterns over Ng1.5 migration API-- otherwise suffer time loss having to re-implement Ng2 patterns after having already built an obsolete structure in pre-Ng1.5 vernacular.  
+The assignment stipulated stack requirements:
+- NodeJS /Express server, scalable resilient architecture,  not to worry about deployment details initially just setup dev env and local hosting. 
+- Angular2 compatibility but with initial Angular-1.5 implementation, Typescript.  I decided to do initial work in Angular-2 then backtrack trying to lay Ng2 patterns over Ng1.5 migration API-- otherwise suffer time loss having to re-implement Ng2 patterns after having already built an obsolete structure in pre-Ng1.5 vernacular.  
 
 As I was new to TypeScript and Ng2, I decided to start off with a boilerplate project that had a number of development environment featuers already established.
 
