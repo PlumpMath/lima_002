@@ -1,0 +1,19 @@
+<div>
+  <span x-large>admin add </span>
+  <form (ngSubmit)="submitState(localState.value)">
+    <input type="text" [value]="localState.value" (input)="localState.value = $event.target.value" autofocus>
+    <button>Create League</button>
+    <input type="text" placeholder="League Name" [value]="localState.value" (input)="localState.value = $event.target.value" autofocus>
+    <button>Create League</button>
+  </form>
+  <!--
+    Rather than wiring up two-way data-binding ourselves with [value] and (input)
+    we can use Angular's [(ngModel)] syntax
+    <input type="text" [(ngModel)]="localState.value" autofocus>
+  -->
+  For hot module reloading run
+  <pre>npm </pre>
+  <hr>
+  <pre>this.localState = {{ localState | json }}</pre>
+
+</div>
