@@ -4,7 +4,42 @@
 
 
 
+# 3 API layers
+- 1: Model / data layer.
+- 2: RPC websocket layer
+- 3: web-Client internal state/action API 
 
+# Model API: `sunspot`
+**early draft/sketch**
+
+## `sunspot`: admin API
+
+- init league in context of global(world), init teams under context of league
+- init season in context of league, init team under dual context of league and (bind to) seasons as those are initiated, 
+- init season under , edit season
+- init game under context of season , edit game 
+- edit game prelim
+- consumate game (finalise scores)
+
+
+## sunspot : user API
+_(context role: C is Commissioner, P is Player, U is generic user role) _
+- init lLeague (Lacoste League) under context global/later maybe differentiate sandbox/worlds (C)
+- invite other user to join own lLeague as Player (C)
+- accetp invite to join (P)
+- authing, registration, login, roles, (U)
+- logout (U)
+- getState-000 ---could be many varieties depending on which section of state is relevant to the request.
+
+
+- edit lLeague (what can edit at root object?)  : name, 
+
+- init Line under context of lLeague (C)
+- edit Line under context of lLeague
+
+- view real-league
+- view lLeague state (variety of players and lines)
+- view results of some stages / lines
 
 
 
