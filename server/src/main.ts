@@ -15,8 +15,6 @@ const Primus = require('primus');
 const c = function(...args: any[]) {console.log.apply(console, args);};
 import rpc__api from './rpc__api/rpc__index';
 
-
-
 const primusLayer = function(server: any) {
     let primus = new Primus(server);
     const clientPrimus = primus.library();
@@ -29,11 +27,8 @@ primusLayer(server);
 app.set('port', port);
 app.use(bodyParser.json());
 
-
 // app.use('/app', express.static(path.resolve(__dirname, 'app')));
 // app.use('/libs', express.static(path.resolve(__dirname, 'libs')));
-
-
 app.use('/', express.static(path.resolve(__dirname, '../../dist/')));
 
 var renderIndex = (req: express.Request, res: express.Response) => {

@@ -18,6 +18,8 @@ var sunspot = league("league", Orange);
 var novaspot = game('game', Orange);
 var rpc__api;
 
+import {init_league, init_team} from '../constants/admin_methods';
+
 exports.rpc__api = rpc__api = function (data: any, cb:any) {
     c(data.event_type || data.type);
     if (data.type === 'falcon') {cb('falcon_ack')}
