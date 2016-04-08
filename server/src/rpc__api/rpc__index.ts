@@ -18,25 +18,29 @@ var sunspot = league("league", Orange);
 var novaspot = game('game', Orange);
 var rpc__api;
 
-import {init_league, init_team} from '../constants/admin_methods';
+import {init_league, init_team, init_season, init_game, consumate_game} from '../constants/admin_methods';
+
+import {init_lLeague, invite_player, define_line} from '../constants/commissioner_methods';
+
+import {join_league, enter_line} from '../constants/player_methods';
 
 exports.rpc__api = rpc__api = function (data: any, cb:any) {
     c(data.event_type || data.type);
     if (data.type === 'falcon') {cb('falcon_ack')}
     if (data.event_type == 'boogieboogie') {c('hasnteuh');}
     switch (data.event_type) {
-        case "LlEAGUE_LINE_GET_STATE_LINE": {},
+        case init_league: {},
 
-        case "LlEAGUE_CONSUMATE_LINE": {
-
-        },
-        case "LlEAGUE_EDIT_LINE": {
+        case init_season: {
 
         },
-        case "LlEAGUE_DEFINE_LINE": {
-            // wrap a real world game witha  bunch of metadata
+        case init_team: {
+
         },
-        case "LlEAGUE_PLAYER_ACCEPT_INVITE": {
+        case init_game: {
+
+        },
+        case "aeo" : {
 
         },
         case "LlEAGUE_INVITE_PLAYER": {

@@ -19,6 +19,7 @@ var game_002_1 = require('../range__api/game_002');
 var sunspot = league_002_1.default("league", Orange);
 var novaspot = game_002_1.default('game', Orange);
 var rpc__api;
+var admin_methods_1 = require('../constants/admin_methods');
 exports.rpc__api = rpc__api = function (data, cb) {
     c(data.event_type || data.type);
     if (data.type === 'falcon') {
@@ -28,14 +29,14 @@ exports.rpc__api = rpc__api = function (data, cb) {
         c('hasnteuh');
     }
     switch (data.event_type) {
-        case "LlEAGUE_LINE_GET_STATE_LINE": { }
-        case "LlEAGUE_CONSUMATE_LINE": {
+        case admin_methods_1.init_league: { }
+        case admin_methods_1.init_season: {
         }
-        case "LlEAGUE_EDIT_LINE": {
+        case admin_methods_1.init_team: {
         }
-        case "LlEAGUE_DEFINE_LINE": {
+        case admin_methods_1.init_game: {
         }
-        case "LlEAGUE_PLAYER_ACCEPT_INVITE": {
+        case "aeo": {
         }
         case "LlEAGUE_INVITE_PLAYER": {
         }
