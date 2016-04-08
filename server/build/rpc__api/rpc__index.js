@@ -62,10 +62,6 @@ exports.rpc__api = rpc__api = function (data, cb) {
             });
             break;
         }
-        case "boogieboogie": {
-            c('boohogogogogo');
-            cb('bogogogogonthntho');
-        }
     }
     ;
 };

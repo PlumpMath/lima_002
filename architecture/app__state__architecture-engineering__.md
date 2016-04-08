@@ -7,34 +7,34 @@
 # 3 API layers
 - 1: Model / data layer.
 - 2: RPC websocket layer
-- 3: web-Client internal state/action API 
+- 3: web-Client internal state/action API
 
 # Model API: `sunspot`  , `rangeYellow` , `Orange`  :: Redis / Lua /
 **early draft/sketch**
 
-_will enumerate the APIs separately ; they may largely mirror each other; it's not always obvious until the implementation requirement details are uncovered in the process of implementation actuale ._
+_will enumerate the APIs separately ; they may largely mirror each other; iow the rpc layer might simply wrap the model layer very thinly; it's not always obvious until the implementation requirement details are uncovered in the process of implementation actuale ._
 
-## `sunspot`: admin API
+## `sunspot`: section admin API
 
 - init league in context of global(world), init teams under context of league
-- init season in context of league, init team under dual context of league and (bind to) seasons as those are initiated, 
+- init season in context of league, init team under dual context of league and (bind to) seasons as those are initiated,
 - init season under , edit season
-- init game under context of season , edit game 
+- init game under context of season , edit game
 - edit game prelim
 - consumate game (finalise scores)
 
 
-## sunspot : user API
-_(context role: C is Commissioner, P is Player, U is generic user role) _
+## `sunspot` : section of user API
+_(context/role: C is Commissioner, P is Player, U is generic user role)_
 - init lLeague (Lacoste League) under context global/later maybe differentiate sandbox/worlds (C)
 - invite other user to join own lLeague as Player (C)
-- accetp invite to join (P)
+- accept invite to join (P)
 - authing, registration, login, roles, (U)
 - logout (U)
 - getState-000 ---could be many varieties depending on which section of state is relevant to the request.
 
 
-- edit lLeague (what can edit at root object?)  : name, 
+- edit lLeague (what can edit at root object?)  : name,
 
 - init Line under context of lLeague (C)
 - edit Line under context of lLeague
@@ -50,7 +50,7 @@ _(context role: C is Commissioner, P is Player, U is generic user role) _
 
 # RPC API  `lumenVine`  `lumenGreen`,   ::  Primus / RPC / websocket /  Typescript / Node  :: API
 
-- 
+-
 
 
 
@@ -85,12 +85,12 @@ players and commissioners
 ### Components
 
 -----------------------------
-Components, 
+Components,
 
 a
 
 
-### Injectables 
+### Injectables
 
 
 ### RxJS  Reactive extensions to Javascript JavaScript
@@ -138,7 +138,7 @@ _.nevertheless there would be view data reqs on hte api even if a lot of it shou
 - init prospective uncommitted bet on line (p)
 - edit prospective uncommitted bet on line (p)
 - commit bet on line (p)
-- view-states ... requesting particular batches of data, maybe would be prefetched anyways, but 
+- view-states ... requesting particular batches of data, maybe would be prefetched anyways, but
 - view state myLeagues (c) (mine as in owning)
 - view state myLeagues (p) (mine as in belonging to)
 - view state lLeague (c) as an owning commis
@@ -155,4 +155,3 @@ We could introduce some SVG stuff soon hopefully.
 
 
 #### need to make an appraisal of progress over two weeks and estimate of prospects.
-

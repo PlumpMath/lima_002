@@ -1,20 +1,30 @@
 const Note_TODO = `
 Don't forget to implement http://msgpack.org/ msgpack instead of JSON, as it's supposedly much
 faster.
+
+
 `
 
-type uid = string;
+type Uid = string;
 type score = number;
+
 type teamName = string;
 type leagueName = string;
 type lLeagueName = string;
 
-interface Bet_000 {
+
+
+export interface Player_Line_Core_000 {
 
 }
 
-interface LineCoreTable_000 {
-    (playerZ: Uid): Bet_000
+export interface I_Player_Enters_Line_000 {
+    (playerZ: Uid, lineZ: Uid): any
+}
+
+interface Init_Line_000 {
+    // will need to handle verification / auths through RPC API and sessions mgmt, maybe token
+    (leagueZ: Uid, gameZ: Uid): Uid
 }
 
 interface LineCore_001 {

@@ -24,7 +24,7 @@ exports.rpc__api = rpc__api = function (data: any, cb:any) {
     if (data.event_type == 'boogieboogie') {c('hasnteuh');}
     switch (data.event_type) {
         case "LlEAGUE_LINE_GET_STATE_LINE": {},
-        
+
         case "LlEAGUE_CONSUMATE_LINE": {
 
         },
@@ -67,10 +67,7 @@ exports.rpc__api = rpc__api = function (data: any, cb:any) {
             });
             break;
         },
-        case "boogieboogie": {
-            c('boohogogogogo');
-            cb('bogogogogonthntho');
-        },
+
     };
 
 };
