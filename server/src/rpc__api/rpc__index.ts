@@ -26,10 +26,19 @@ import {join_league, enter_line} from '../constants/player_methods';
 
 exports.rpc__api = rpc__api = function (data: any, cb:any) {
     c(data.event_type || data.type);
-    if (data.type === 'falcon') {cb('falcon_ack')}
-    if (data.event_type == 'boogieboogie') {c('hasnteuh');}
+    // if (data.type === 'falcon') {cb('falcon_ack')}
     switch (data.event_type) {
-        case init_league: {},
+        case init_league: {
+            sunspot.league_init(data.name, (res) => {
+                c("rpc has callback with", res);
+                cb(res);
+            });
+            break;
+        },
+        case init_team: {
+            sunspot.init_team()
+
+        },
 
         case init_season: {
 

@@ -11,7 +11,7 @@ local basket = redis.call("LRANGE", "WORLD", 0, -1)
 local basket2 = {}
 for i,v in ipairs(basket) do
     local cursor = cjson.decode(v)
-    if cursor.event_type == "league_init" then
+    if cursor.event_type == "init_league" then
         basket2[cursor.name] = 'true'
     end
 end

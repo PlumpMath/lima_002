@@ -10,3 +10,8 @@ There are two layers: RPC and Data.  RPC is the websocket connection from the cl
 
 ### Tests
 There are two tiers of unit (Mocha) tests, one for each API/layer.  `mocha build\test\...\filename.js` is how I run them.
+
+
+### todo
+
+- auths, sessions mgmt

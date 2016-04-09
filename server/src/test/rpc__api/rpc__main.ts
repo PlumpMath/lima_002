@@ -11,11 +11,16 @@ const Promise = Bluebird.Promise;
 import shortid = require('shortid');
 import assert = require('assert');
 
+{}
+
 
 const rpc__api = require('../../rpc__api/rpc__index').rpc__api;
 // c('is good')
 const ra = rpc__api;
 // c('rpc__api', rpc__api);
+
+import {init_league, init_team, init_season, init_game, consumate_game} from '../constants/admin_methods';
+
 
 // This is the client facing API.  It should behave as the RPC layer but without having to
 // run an RPC connection.
@@ -25,27 +30,14 @@ var mock_league = {};
 
 var mock_teams = {};
 
-describe('the api should respond to event type boogie boogie', ()=> {
-    it('should respond appr', (done) => {
-        let data = {
-            event_type: 'boogieboogie'
-        }
-        rpc__api(data, (res) => {
-            c('have response', res);
-            assert.equal(res, 'bogogogogonthntho');
 
-        });
-        done();
-    });
-});
 
 describe('request to make a league', () => {
     it('should make a league', (done) => {
-        let frag = shortid();
-        let mockname = "LEAGUENAME" + frag;
+        let mockname = "League Mock" + shortid();
         mock_league.name = mockname;
         let req = {
-            event_type: "league_init",
+            event_type: init_league,
             name: mockname
         };
         ra(req, (res) => {
@@ -61,7 +53,7 @@ describe('we should be able to add teams', ()=> {
     it('teams add ', (done) => {
         let name = "TEAM_MOCK_____________" + shortid();
         let req = {
-            event_type: 'ADD_TEAM_TO_LEAGUE',
+            event_type: init_team,
             leagueZ: mock_league.leagueZ,
             name: name
         };
@@ -69,4 +61,20 @@ describe('we should be able to add teams', ()=> {
             assert.equal(res.result, 'okgood');
         });
         done();
+});
+
+describe('add season to league', ()=> {
+    it('add season', (done)=> {
+        let name = "2017 SEASON_MOCK " + shortid();
+        let req = {
+            event_type: init_season,
+            leagueZ: mock_league.leagueZ,;
+            name: name
+        };
+        ra(req, (res)=> {
+            c('test has res', res);
+
+        });
+        done();
+    });
 });
