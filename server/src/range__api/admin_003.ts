@@ -13,13 +13,19 @@ import * as leibniz from '../constants/admin_interfaces_001'
 let interfaces = {}
 _.assign(interfaces, leibniz);
 const i = interfaces;
+import * as aM from  '../constants/admin_methods.ts';
 
 var api__000 =  function (message: any, Orange: any) {
-    Orange.defineCommand('consumate_game', {
+    // if this works do them all like this in the sense of trying to get all the protocols standardised
+    // single source of truth way.
+    Orange.defineCommand(aM.consumate_game, {
         lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/consumate_game.lua'))
     });
+    // Orange.defineCommand('consumate_game', {
+    //     lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/consumate_game.lua'))
+    // });
     Orange.defineCommand('init_game', {
-        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_game.lua'))
+        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_game_003.lua'))
     });
     Orange.defineCommand('init_season', {
         lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_season.lua'))
@@ -28,7 +34,7 @@ var api__000 =  function (message: any, Orange: any) {
         lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_team.lua'))
     });
     Orange.defineCommand('init_league', {
-        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_league.lua'))
+        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_league_003.lua'))
     });
     return Orange;
 }
@@ -74,6 +80,7 @@ var sunspot = function (rangeYellow) {
 
     const init_team_005 = function(ticket: i.TeamInit_Ticket, cb) {
         let str_payload = JSON.stringify(_.assign(ticket, {
+            timestamp: Date.now(),
             teamZ: uuid.v4()
         }));
         rangeYellow.init_team(1, str_payload)
@@ -88,6 +95,9 @@ var sunspot = function (rangeYellow) {
     // because we generate the leagueZ here in this layer
     const init_league_005 = function(ticket: i.LeagueInit_Ticket, cb) {
         let str_payload = JSON.stringify(_.assign(ticket, {
+            event_type: aM.init_league,
+            eventZ: uuid.v4(), // why not? might be useful
+            time_stamp: Date.now(),
             leagueZ: uuid.v4()
         }));
         rangeYellow.init_league(1, str_payload)
