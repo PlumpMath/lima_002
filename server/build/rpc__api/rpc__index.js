@@ -1,5 +1,4 @@
 "use strict";
-var port = process.env.PORT || 3000;
 // const Rx = require('rxjs');
 // const Bluebird = require('bluebird');
 var Bluebird = require('bluebird');
@@ -22,14 +21,18 @@ var rpc__api;
 var admin_methods_1 = require('../constants/admin_methods');
 exports.rpc__api = rpc__api = function (data, cb) {
     c(data.event_type || data.type);
-    if (data.type === 'falcon') {
-        cb('falcon_ack');
-    }
-    if (data.event_type == 'boogieboogie') {
-        c('hasnteuh');
-    }
+    // if (data.type === 'falcon') {cb('falcon_ack')}
     switch (data.event_type) {
-        case admin_methods_1.init_league: { }
+        case admin_methods_1.init_league: {
+            sunspot.league_init(data.name, function (res) {
+                c("rpc has callback with", res);
+                cb(res);
+            });
+            break;
+        }
+        case admin_methods_1.init_team: {
+            sunspot.init_team();
+        }
         case admin_methods_1.init_season: {
         }
         case admin_methods_1.init_team: {

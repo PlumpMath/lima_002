@@ -68,7 +68,7 @@ c('imaginary mocks', league_mocks.imaginary);
 describe('initiation of a real league in the world', function () {
     // for now just go with one constant "WORLD"
     it('should be possible to instantiate a real sports league into the world', function (done) {
-        sunspot.league_init(league_mocks.imaginary[0].name, function (go) {
+        sunspot.init_league(league_mocks.imaginary[0].name, function (go) {
             c('have go', go);
             c('go should have leagueZ', go.leagueZ);
             league_mocks.imaginary[0].leagueZ = go.leagueZ;

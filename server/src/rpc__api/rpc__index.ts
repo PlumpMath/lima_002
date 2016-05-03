@@ -1,6 +1,5 @@
 
 import path = require('path');
-var port: number = process.env.PORT || 3000;
 import * as _ from 'lodash';
 // const Rx = require('rxjs');
 // const Bluebird = require('bluebird');
@@ -20,7 +19,7 @@ var rpc__api;
 
 import {init_league, init_team, init_season, init_game, consumate_game} from '../constants/admin_methods';
 
-import {init_lLeague, invite_player, define_line} from '../constants/commissioner_methods';
+// import {init_lLeague, invite_player, define_line} from '../constants/commissioner_methods';
 
 import {join_league, enter_line} from '../constants/player_methods';
 

@@ -43,6 +43,9 @@ var novaspot = function (rangeYellow) {
     };
 
     const edit_game = function(payload, cb) {
+        // TODO : decide if API should have data-validation responsibilities;
+        //                                                      if so then implement.
+        // payload_validator_for_edit_game = (payload) ->
         //payload={gameZ, data}
         let str_payload = JSON.stringify(_.assign(payload, {
             event_type: "EDIT_GAME",

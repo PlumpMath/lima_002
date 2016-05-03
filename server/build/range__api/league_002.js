@@ -14,6 +14,53 @@ var uuid = require('node-uuid');
 var fS = Promise.promisifyAll(fs);
 var path = require('path');
 var base = "../../lua/league/";
+var leibniz = require('../constants/interfaces_000');
+var interfaces = {};
+_.assin(interfaces, leibniz);
+function gameConsumate_ticket_factory(gameZ, homeTeam_finalScore, visitorTeam_finalScore) {
+    return {
+        gameZ: gameZ,
+        homeTeam_finalScore: homeTeam_finalScore,
+        visitorTeam_finalScore: visitorTeam_finalScore
+    };
+}
+;
+function gameInit_ticket_factory(seasonZ, leagueZ, homeTeamZ, visitorTeamZ, scheduledDate) {
+    return {
+        seasonZ: seasonZ,
+        leagueZ: leagueZ,
+        homeTeamZ: homeTeamZ,
+        visitorTeamZ: visitorTeamZ,
+        scheduledDate: scheduledDate
+    };
+}
+;
+function seasonInit_ticket_factory(seasonZ, seasonName, leagueZ) {
+    return {
+        seasonZ: seasonZ,
+        seasonName: seasonName,
+        leagueZ: leagueZ
+    };
+}
+function teamInit_ticket_factory(teamZ, teamName, leagueZ) {
+    return {
+        teamZ: teamZ,
+        teamName: teamName,
+        leagueZ: leagueZ
+    };
+}
+;
+function leagueInit_ticket_factory(leagueZ, leagueName) {
+    return {
+        leagueZ: leagueZ,
+        leagueName: leagueName
+    };
+}
+;
+// import {init_league, init_team, init_season, init_game, consumate_game} from '../constants/admin_methods';
+var kant = require('../constants/admin_methods');
+var admin_actions = {};
+_.assign(admin_actions, kant);
 var api__000 = function (message, Orange) {
     Orange.defineCommand('query_for_undecided_games', {
         lua: fs.readFileSync(path.resolve(__dirname, '../../lua/league/query_for_undecided_games.lua'))
@@ -25,13 +72,27 @@ var api__000 = function (message, Orange) {
         lua: fs.readFileSync(path.resolve(__dirname, '../../lua/league/add_game.lua'))
     });
     Orange.defineCommand('add_team', {
-        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/league/add_team.lua'))
+        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/league/init_team.lua'))
     });
     Orange.defineCommand('league_state_000', {
         lua: fs.readFileSync(path.resolve(__dirname, '../../lua/league/league_state_000.lua'))
     });
-    Orange.defineCommand('league_init', {
-        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/league/league_init.lua'))
+    //              deprecated above ^
+    // new below  >
+    Orange.defineCommand('consumate_game', {
+        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/consumate_game.lua'))
+    });
+    Orange.defineCommand('init_game', {
+        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_game.lua'))
+    });
+    Orange.defineCommand('init_season', {
+        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_season.lua'))
+    });
+    Orange.defineCommand('init_team', {
+        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_team.lua'))
+    });
+    Orange.defineCommand('init_league', {
+        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_league.lua'))
     });
     return Orange;
 };
@@ -76,6 +137,36 @@ var sunspot = function (rangeYellow) {
             .then(function (res) {
             c('have res euea', res);
             cb({ res: res, gameZ: gameZ });
+        })
+            .error(function (err) {
+            c('have err', err);
+            cb(err);
+        });
+    };
+    var init_team_001 = function (req, cb) {
+        var teamZ = uuid.v4();
+        var str_payload = JSON.stringify({
+            event_type: init_team,
+            timestamp: Date.now(),
+            team_name: req.name,
+            leagueZ: req.leagueZ,
+            teamZ: teamZ
+        });
+        rangeYellow.add_team(1, str_payload)
+            .then(function (res) {
+            c('have res euea', res);
+            // let obj = JSON.parse(res);
+            var obj = JSON.parse(res, res);
+            c(obj.result);
+            if (obj.leagueZ !== req.leagueZ || obj.teamZ !== teamZ) {
+                throw "error";
+            }
+            cb({
+                result: obj.result,
+                teamZ: teamZ,
+                team_name: req.name,
+                leagueZ: req.leagueZ
+            });
         })
             .error(function (err) {
             c('have err', err);
@@ -152,16 +243,54 @@ var sunspot = function (rangeYellow) {
             cb(err);
         });
     };
-    var league_init = function (league_name, cb) {
-        // the script should initialise the atomic data structure unless
-        var leagueZ = uuid.v4();
+    var init_game = function (game_init_ticket) {
+    };
+    var init_season = function (season_name, leagueZ, cb) {
+        var seasonZ = uuid.v4();
         var str_payload = JSON.stringify({
-            event_type: "league_init",
+            event_type: admin_actions.init_season,
             timestamp: Date.now(),
-            leagueZ: leagueZ,
-            name: league_name
+            seasonZ: seasonZ,
+            season_name: season_name
         });
-        rangeYellow.league_init(1, str_payload)
+        rangeYellow.init_season(1, str_payload)
+            .then(function (res) {
+            // c('have res league init', res);
+            // c('typeof res', typeof(res));
+            var obj = JSON.parse(res);
+            cb({ result: obj.result, leagueZ: leagueZ, leagueName: league_name });
+        })
+            .error(function (err) {
+            c('have err', err);
+            cb(err);
+        });
+    };
+    // here instead of spread operators, the api expects completed tickets already
+    // manufactured according to the interface template.  we just stringify it
+    var init_league_003 = function (leagueInit_ticket, cb) {
+        var str_payload = JSON.stringify(leagueInit_ticket);
+        rangeYellow.init_league(1, str_payload)
+            .then(function (res) {
+            // c('have res league init', res);
+            // c('typeof res', typeof(res));
+            var obj = JSON.parse(res);
+            cb({ result: obj.result, leagueZ: leagueZ, leagueName: league_name });
+        })
+            .error(function (err) {
+            c('have err', err);
+            cb(err);
+        });
+    };
+    var init_league = function (leagueName, cb) {
+        var leagueZ = uuid.v4();
+        var str_payload = JSON.stringify(leagueInit_ticket_factory(leagueZ, leagueName));
+        // let str_payload = JSON.stringify({
+        //     event_type: admin_actions.init_league,
+        //     timestamp: Date.now(),
+        //     leagueZ: leagueZ,
+        //     name: league_name
+        // });
+        rangeYellow.init_league(1, str_payload)
             .then(function (res) {
             // c('have res league init', res);
             // c('typeof res', typeof(res));
@@ -180,7 +309,8 @@ var sunspot = function (rangeYellow) {
         add_team_001: add_team_001,
         add_team: add_team,
         league_state_000: league_state_000,
-        league_init: league_init
+        init_team: init_team,
+        init_league: init_league
     };
 };
 function default_1(message, Orange) {
