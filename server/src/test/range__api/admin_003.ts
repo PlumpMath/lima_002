@@ -48,10 +48,15 @@ let season_ticket_factory = function(leagueZ)  {
         leagueZ: leagueZ
     }
 };
-let gameFactory = function(leagueZ, seasonZ, homeTeamZ, visitorTeamZ, date) {
+let game_ticket_factory = function (arq) {
+    {leagueZ, seasonZ, home_teamZ, visitor_teamZ, date} = arq
     return {
         gameName: "GameName: " + shortid(),
-
+        leagueZ: leagueZ,
+        seasonzZ: seasonZ,
+        homeTeamZ: homeTeamZ,
+        visitorTeamZ: visitorTeamZ,
+        date: date
     }
 };
 
@@ -70,6 +75,7 @@ describe('init league', ()=> {
                 c();
                 c('res2', '\n', res);
                 c(typeof res);
+                c("Assert: res should have leagueZ and leagueName attributes");
                 let league = {
                     leagueZ: res.leagueZ,
                     leagueName: res.leagueName,
@@ -84,7 +90,6 @@ describe('init league', ()=> {
     });
 });
 
-
 describe('init teams', () => {
     it('init team', (done) => {
         _.forEach(leagues, (league, idx) => {
@@ -94,6 +99,7 @@ describe('init teams', () => {
                 admin.init_team(team_ticket, (res) => {
                     c();
                     c(res);
+                    c("Assert: team_ticket should have timestamp, teamZ, teamName, leagueZ, etc attributes, and the result should be 'okgood'");
                     let team = {
                         leagueZ: res.leagueZ,
                         teamZ: res.teamZ
@@ -117,13 +123,52 @@ describe('init seasons', () => {
                 admin.init_season(season_ticket, (res) => {
                     c();
                     c(res);
+                    c("Assert: res/ticket should have all these attributes, and result attribute should be 'okgood'");
+                    let season = _.omit(res, ['']); //todo complete array of fields to omit
+                    league.seasons.push(season);
+                    if ((idx === leagues.length - 1) && (num === 3)) {done();}
                 });
-                if ((idx === leagues.length - 1) && (num === 3)) {done();}
-            })
-        })
+            });
+        });
     });
 });
 
+describe('init games', () => {
+    it('init games', (done) => {
+        _.forEach(leagues, (league, idx) => {
+            _.forEach(league.seasons, (season, idx2) => {
+                let home_team_1 = league.teams[0]
+                let visitor_team_1 = league.teams[1]
+                let home_team_2 = league.teams[2]
+                let visitor_team_2 = league.teams[3]
+                //for each season we'll make two games
+                // {leagueZ, seasonZ, home_teamZ, visitor_teamZ, date} = arq
+                let arq_1 = {
+                    leagueZ: league.leagueZ,
+                    seasonZ: season.seasonZ,
+                    home_teamZ: home_team_1.teamZ,
+                    visitor_teamZ: visitor_team_1.teamZ,
+                    date: new Date()
+                };
+                let arq_2 = {
+                    leagueZ: league.leagueZ,
+                    seasonZ: season.seasonZ,
+                    home_teamZ: home_team_2.teamZ,
+                    visitor_teamZ: visitor_team_2.teamZ,
+                    date: new Date()
+                };
+                let game_ticket_1 = game_ticket_factory(arq_1);
+                let game_ticket_2 = game_ticket_factory(arq_2);
+                admin.init_game(game_ticket_1, (res_1) => {
+                    c('res_1', res_1);
+                    admin.init_game(game_ticket_2, (res_2) => {
+                        c('res_2', res_2);
+                    })
+                })
+            });
+        });
+    });
+});
 
 
 

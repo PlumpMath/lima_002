@@ -45,9 +45,18 @@ var season_ticket_factory = function (leagueZ) {
         leagueZ: leagueZ
     };
 };
-var gameFactory = function (leagueZ, seasonZ, homeTeamZ, visitorTeamZ, date) {
+var game_ticket_factory = function (arq) {
+    {
+        leagueZ, seasonZ, home_teamZ, visitor_teamZ, date;
+    }
+    arq;
     return {
         gameName: "GameName: " + shortid(),
+        leagueZ: leagueZ,
+        seasonzZ: seasonZ,
+        homeTeamZ: homeTeamZ,
+        visitorTeamZ: visitorTeamZ,
+        date: date
     };
 };
 _.forEach([1, 2, 3], function (n) {
@@ -62,6 +71,7 @@ describe('init league', function () {
                 c();
                 c('res2', '\n', res);
                 c(typeof res);
+                c("Assert: res should have leagueZ and leagueName attributes");
                 var league = {
                     leagueZ: res.leagueZ,
                     leagueName: res.leagueName,
@@ -86,6 +96,7 @@ describe('init teams', function () {
                 admin.init_team(team_ticket, function (res) {
                     c();
                     c(res);
+                    c("Assert: team_ticket should have timestamp, teamZ, teamName, leagueZ, etc attributes, and the result should be 'okgood'");
                     var team = {
                         leagueZ: res.leagueZ,
                         teamZ: res.teamZ
@@ -110,10 +121,49 @@ describe('init seasons', function () {
                 admin.init_season(season_ticket, function (res) {
                     c();
                     c(res);
+                    c("Assert: res/ticket should have all these attributes, and result attribute should be 'okgood'");
+                    var season = _.omit(res, ['']); //todo complete array of fields to omit
+                    league.seasons.push(season);
+                    if ((idx === leagues.length - 1) && (num === 3)) {
+                        done();
+                    }
                 });
-                if ((idx === leagues.length - 1) && (num === 3)) {
-                    done();
-                }
+            });
+        });
+    });
+});
+describe('init games', function () {
+    it('init games', function (done) {
+        _.forEach(leagues, function (league, idx) {
+            _.forEach(league.seasons, function (season, idx2) {
+                var home_team_1 = league.teams[0];
+                var visitor_team_1 = league.teams[1];
+                var home_team_2 = league.teams[2];
+                var visitor_team_2 = league.teams[3];
+                //for each season we'll make two games
+                // {leagueZ, seasonZ, home_teamZ, visitor_teamZ, date} = arq
+                var arq_1 = {
+                    leagueZ: league.leagueZ,
+                    seasonZ: season.seasonZ,
+                    home_teamZ: home_team_1.teamZ,
+                    visitor_teamZ: visitor_team_1.teamZ,
+                    date: new Date()
+                };
+                var arq_2 = {
+                    leagueZ: league.leagueZ,
+                    seasonZ: season.seasonZ,
+                    home_teamZ: home_team_2.teamZ,
+                    visitor_teamZ: visitor_team_2.teamZ,
+                    date: new Date()
+                };
+                var game_ticket_1 = game_ticket_factory(arq_1);
+                var game_ticket_2 = game_ticket_factory(arq_2);
+                admin.init_game(game_ticket_1, function (res_1) {
+                    c('res_1', res_1);
+                    admin.init_game(game_ticket_2, function (res_2) {
+                        c('res_2', res_2);
+                    });
+                });
             });
         });
     });

@@ -28,9 +28,9 @@ var api__000 =  function (message: any, Orange: any) {
     // Orange.defineCommand('consumate_game', {
     //     lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/consumate_game.lua'))
     // });
-    // Orange.defineCommand('init_game', {
-    //     lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_game_003.lua'))
-    // });
+    Orange.defineCommand('init_game', {
+        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_game_003.lua'))
+    });
     Orange.defineCommand('init_season', {
         lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_season_003.lua'))
     });
