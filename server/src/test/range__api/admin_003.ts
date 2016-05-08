@@ -20,11 +20,8 @@ let admin = sunspot("admin", Orange);
 
 // Step One ; Assemble Mocks
 let league_mocks = [];
-let team_mocks = {};
-let season_mocks = {};
-let game_mocks = {};
 
-let date_mocks = [];
+let date_mocks = []
 date_mocks.push(new Date()); // set an arg for different real dates.
 date_mocks.push(new Date());
 date_mocks.push(new Date());
@@ -35,28 +32,59 @@ date_mocks.push(new Date());
 
 let leagueFactory = function() {
     return {
-        leagueZ: uuid.v4(),
         leagueName: "LeagueName: " + shortid()
     }
 };
 let teamFactory = function(leagueZ) {
     return {
-        teamZ: uuid.v4(),
         teamName: "TeamName: " + shortid(),
         leagueZ: leagueZ
     }
 };
-let SeasonFactory = function(leagueZ)  {
+let seasonFactory = function(leagueZ)  {
     return {
-        seasonZ: uuid.v4(),
         seasonName: "SeasonName: " + shortid(),
         leagueZ: leagueZ
     }
 };
-let GameFactory = function(leagueZ, seasonZ, homeTeamZ, visitorTeamZ) {
-    return null
+let gameFactory = function(leagueZ, seasonZ, homeTeamZ, visitorTeamZ, date) {
+    return {
+        gameName: "GameName: " + shortid(),
+
+    }
 };
 
-_.forEach([1,2,3], (item) => {
+_.forEach([1,2,3], (n) => {
     league_mocks.push(leagueFactory());
 });
+
+// _.forEach(league_mocks, (league, idx) => {
+//     admin.init_league(league, (res) => {
+//         c('have res', res);
+//     });
+//     // .then((res) => {
+//     //     c('res', res)
+//     // })
+//     // .error((err) => {
+//     //     c('err', err)
+//     // })
+// });
+
+let x = league_mocks[0];
+c('x', x);
+
+admin.init_league(x, (res) => {
+    c('res', res);
+});
+
+// admin.test()
+
+// c('sunspot', admin.init_league);
+
+describe('wait', ()=> {
+    it('should wait', (done) => {
+        setTimeout(()=> {
+            done();
+        }, 1000);
+    })
+})

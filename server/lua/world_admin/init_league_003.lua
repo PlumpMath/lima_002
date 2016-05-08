@@ -2,9 +2,10 @@
 local function cc (aaa)
     redis.call('publish', 'log', 'REDISLOG:' ..aaa)
 end
-
+cc('hey')
 local str_payload = KEYS[1]
 local ticket = cjson.decode(str_payload)
+local event = nil
 
 local basket = redis.call('LRANGE', 'WORLD', 0, -1)
 
@@ -18,7 +19,7 @@ for i,v in ipairs(basket) do
 end
 
 if basket2[ticket.leagueName] ~= 'true' then
-    local event = {
+    event = {
         eventZ = ticket.eventZ,
         event_type = ticket.event_type,
         timestamp = ticket.time_stamp,
@@ -33,5 +34,6 @@ if basket2[ticket.leagueName] ~= 'true' then
     event.result = 'okdone'
 else
     event.result = 'error:name_already_taken'
+end
 
-return = cjson.encode(event)
+return cjson.encode(event)

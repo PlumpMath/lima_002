@@ -13,15 +13,20 @@ var Promise = Bluebird.Promise;
 var uuid = require('node-uuid');
 var fS = Promise.promisifyAll(fs);
 var path = require('path');
-var base = "../../lua/world_admin/";
+// const base = "../../lua/world_admin/";
 // import * as leibniz from '../constants/admin_interfaces_001'
 // let interfaces = {}
 // _.assign(interfaces, leibniz);
 // const i = interfaces;
 // import * as aM from  '../constants/admin_methods.ts';
+// let zz = fs.readFileSync(path.resolve(__dirname, '../../lua/test.lua'));q
+// c('zz', zz.toString());
 var api__000 = function (message, Orange) {
     // if this works do them all like this in the sense of trying to get all the protocols standardised
     // single source of truth way.
+    // Orange.defineCommand('test', {
+    //     lua: fs.readFileSync(path.resolve(__dirname, '../../lua/test.lua'))
+    // });
     // Orange.defineCommand(aM.consumate_game, {
     //     lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/consumate_game.lua'))
     // });
@@ -34,9 +39,9 @@ var api__000 = function (message, Orange) {
     // Orange.defineCommand('init_season', {
     //     lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_season.lua'))
     // });
-    Orange.defineCommand('init_team', {
-        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_team.lua'))
-    });
+    // Orange.defineCommand('init_team', {
+    //     lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_team.lua'))
+    // });
     Orange.defineCommand('init_league', {
         lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_league_003.lua'))
     });
@@ -92,26 +97,48 @@ var sunspot = function (rangeYellow) {
     };
     // because we generate the leagueZ here in this layer
     var init_league_005 = function (ticket, cb) {
+        c('hereeee');
         var str_payload = JSON.stringify(_.assign(ticket, {
-            event_type: aM.init_league,
+            event_type: 'init_league',
             eventZ: uuid.v4(),
             time_stamp: Date.now(),
             leagueZ: uuid.v4()
         }));
+        c('str_pa', str_payload);
+        // c('range', rangeYellow.init_league);
         rangeYellow.init_league(1, str_payload)
             .then(function (res) {
+            c('here2');
             cb(res);
         })
             .error(function (err) {
+            c('err', err);
             cb(err);
         });
     };
+    // const test = function () {
+    //     // c('heethe')
+    //     // rangeYellow.set('podria', 'podra')
+    //     // // .then((res) => {c('res', res)})
+    //     // // .error((err) => {c('err', err)})
+    //     // rangeYellow.get('podria', (err, res)=> {
+    //     //     c('res, err', res, err);
+    //     // });
+    //
+    //     rangeYellow.test(1, JSON.stringify({hello: "hthenteth"}))
+    //     .then((res) => {
+    //         c('here3');
+    //     })
+    //     .error((err) => {
+    //         c('err', err);
+    //     })
+    // };
     return {
         consumate_game: consumate_game_005,
         init_game: init_game_005,
         init_season: init_season_005,
         init_team: init_team_005,
-        init_league: init_league_005
+        init_league: init_league_005,
     };
 };
 function default_1(message, Orange) {

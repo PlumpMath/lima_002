@@ -7,7 +7,6 @@ var c = function () {
     console.log.apply(console, arguments);
 };
 var _ = require('lodash');
-var uuid = require('node-uuid');
 var Bluebird = require('bluebird');
 var IoRedis = require('ioredis');
 var Orange = IoRedis.createClient();
@@ -21,9 +20,6 @@ var admin_003_1 = require('../../range__api/admin_003');
 var admin = admin_003_1.default("admin", Orange);
 // Step One ; Assemble Mocks
 var league_mocks = [];
-var team_mocks = {};
-var season_mocks = {};
-var game_mocks = {};
 var date_mocks = [];
 date_mocks.push(new Date()); // set an arg for different real dates.
 date_mocks.push(new Date());
@@ -33,27 +29,51 @@ date_mocks.push(new Date());
 date_mocks.push(new Date());
 var leagueFactory = function () {
     return {
-        leagueZ: uuid.v4(),
         leagueName: "LeagueName: " + shortid()
     };
 };
 var teamFactory = function (leagueZ) {
     return {
-        teamZ: uuid.v4(),
         teamName: "TeamName: " + shortid(),
         leagueZ: leagueZ
     };
 };
-var SeasonFactory = function (leagueZ) {
+var seasonFactory = function (leagueZ) {
     return {
-        seasonZ: uuid.v4(),
         seasonName: "SeasonName: " + shortid(),
         leagueZ: leagueZ
     };
 };
-var GameFactory = function (leagueZ, seasonZ, homeTeamZ, visitorTeamZ) {
-    return null;
+var gameFactory = function (leagueZ, seasonZ, homeTeamZ, visitorTeamZ, date) {
+    return {
+        gameName: "GameName: " + shortid(),
+    };
 };
-_.forEach([1, 2, 3], function (item) {
+_.forEach([1, 2, 3], function (n) {
     league_mocks.push(leagueFactory());
+});
+// _.forEach(league_mocks, (league, idx) => {
+//     admin.init_league(league, (res) => {
+//         c('have res', res);
+//     });
+//     // .then((res) => {
+//     //     c('res', res)
+//     // })
+//     // .error((err) => {
+//     //     c('err', err)
+//     // })
+// });
+var x = league_mocks[0];
+c('x', x);
+admin.init_league(x, function (res) {
+    c('res', res);
+});
+// admin.test()
+// c('sunspot', admin.init_league);
+describe('wait', function () {
+    it('should wait', function (done) {
+        setTimeout(function () {
+            done();
+        }, 1000);
+    });
 });
