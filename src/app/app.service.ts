@@ -16,7 +16,7 @@ export class AppState {
           this.primus.write({
               success: true,
               actionGroup: 'main',
-              type: 'RazorGrip',
+              type: '',
               params: {}
           });
       }

@@ -1,4 +1,5 @@
-var bodyParser = require('body-parser');
+// var bodyParser = require('body-parser');
+import bodyParser = require('body-parser');
 import express = require('express');
 import path = require('path');
 var port: number = process.env.PORT || 3000;

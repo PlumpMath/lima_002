@@ -20,7 +20,7 @@ gulp.task('build', function () {
 });
 
 gulp.task('watch', function () {
-	gulp.run('clean');
+	// gulp.run('clean');
 	gulp.run('build');
     gulp.watch('./src/**/*.ts', ['build']);
 });

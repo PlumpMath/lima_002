@@ -1,54 +1,11 @@
-
-const c = function(...args:any[]){console.log.apply(console,arguments);};
-
-type unique_id = string;
-
-export interface GameConsumate_Ticket {
-    gameZ: unique_id,
-    homeTeam_finalScore: number,
-    visitorTeam_finalScore: number
-}
-
-export interface GameInit_Ticket {
-    gameZ: unique_id,
-    seasonZ: unique_id,
-    leagueZ: unique_id,
-    homeTeamZ: unique_id,
-    visitorTeamZ: unique_id,
-    scheduledDate: Date
-}
-
-export interface SeasonInit_Ticket {
-    seasonZ: unique_id,
-    seasonName: string,
-    leagueZ: unique_id
-}
-
-export interface TeamInit_Ticket {
-    teamZ: unique_id,
-    teamName: string,
-    leagueZ: unique_id
-}
-
-export interface League_State_Micro_000 {
-    leagueZ: unique_id,
-    leagueName: string
-}
-
-//should return league name and leagueZ
-export interface LeagueInit_CB extends League_State_Micro_000 {
-    result: boolean
-}
-
-export interface LeagueInit_Return {
-    result: string
-
-}
-export interface LeagueInit_Ticket {
-    leagueName: string,
-    leagueZ: unique_id
-}
-
+"use strict";
+var c = function () {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i - 0] = arguments[_i];
+    }
+    console.log.apply(console, arguments);
+};
 // function gameConsumate_ticket_factory (gameZ, homeTeam_finalScore, visitorTeam_finalScore): interfaces.GameConsumate_Ticket {
 //     return {
 //         gameZ: gameZ,
@@ -56,7 +13,6 @@ export interface LeagueInit_Ticket {
 //         visitorTeam_finalScore: visitorTeam_finalScore
 //     }
 // };
-
 // function gameInit_ticket_factory (seasonZ, leagueZ, homeTeamZ, visitorTeamZ, scheduledDate): interfaces.GameInit_Ticket {
 //     return {
 //         seasonZ: seasonZ,
@@ -74,7 +30,6 @@ export interface LeagueInit_Ticket {
 //         leagueZ: leagueZ
 //     }
 // }
-
 // function teamInit_ticket_factory (teamZ, teamName, leagueZ): interfaces.TeamInit_Ticket {
 //     return {
 //         teamZ: teamZ,
@@ -82,7 +37,6 @@ export interface LeagueInit_Ticket {
 //         leagueZ: leagueZ
 //     }
 // };
-
 // export function
 //
 // export function leagueInit_ticket_factory (leagueZ, leagueName): interfaces.LeagueInit_Ticket  {

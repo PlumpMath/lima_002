@@ -14,26 +14,26 @@ var uuid = require('node-uuid');
 var fS = Promise.promisifyAll(fs);
 var path = require('path');
 var base = "../../lua/world_admin/";
-var leibniz = require('../constants/admin_interfaces_001');
-var interfaces = {};
-_.assign(interfaces, leibniz);
-var i = interfaces;
-var aM = require('../constants/admin_methods.ts');
+// import * as leibniz from '../constants/admin_interfaces_001'
+// let interfaces = {}
+// _.assign(interfaces, leibniz);
+// const i = interfaces;
+// import * as aM from  '../constants/admin_methods.ts';
 var api__000 = function (message, Orange) {
     // if this works do them all like this in the sense of trying to get all the protocols standardised
     // single source of truth way.
-    Orange.defineCommand(aM.consumate_game, {
-        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/consumate_game.lua'))
-    });
+    // Orange.defineCommand(aM.consumate_game, {
+    //     lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/consumate_game.lua'))
+    // });
     // Orange.defineCommand('consumate_game', {
     //     lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/consumate_game.lua'))
     // });
-    Orange.defineCommand('init_game', {
-        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_game_003.lua'))
-    });
-    Orange.defineCommand('init_season', {
-        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_season.lua'))
-    });
+    // Orange.defineCommand('init_game', {
+    //     lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_game_003.lua'))
+    // });
+    // Orange.defineCommand('init_season', {
+    //     lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_season.lua'))
+    // });
     Orange.defineCommand('init_team', {
         lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_team.lua'))
     });
@@ -121,3 +121,6 @@ function default_1(message, Orange) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = default_1;
 ;
+// export default function () {
+//     return 43;
+// };

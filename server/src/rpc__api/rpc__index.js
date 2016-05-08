@@ -15,8 +15,8 @@ var c = function () {
 var base = "../";
 var league_002_1 = require('../range__api/league_002');
 var game_002_1 = require('../range__api/game_002');
-var sunspot = league_002_1.default("league", Orange);
-var novaspot = game_002_1.default('game', Orange);
+var sunspot = league_002_1["default"]("league", Orange);
+var novaspot = game_002_1["default"]('game', Orange);
 var rpc__api;
 var admin_methods_1 = require('../constants/admin_methods');
 exports.rpc__api = rpc__api = function (data, cb) {

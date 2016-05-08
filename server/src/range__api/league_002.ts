@@ -50,7 +50,7 @@ function teamInit_ticket_factory (teamZ, teamName, leagueZ): interfaces.TeamInit
 
 function leagueInit_ticket_factory (leagueZ, leagueName): interfaces.LeagueInit_Ticket  {
     return {
-        leagueZ: leagueZ
+        leagueZ: leagueZ,
         leagueName: leagueName
     }
 };
@@ -241,7 +241,8 @@ var sunspot = function (rangeYellow) {
         rangeYellow.league_state_000(1, str_payload)
         .then((res) => {
             c('have res aaaa', res);
-            cb(res: res, leagueZ: leagueZ);
+            cb({res: res,
+            leagueZ: leagueZ});
         })
         .error((err) => {
             c('have err', err);

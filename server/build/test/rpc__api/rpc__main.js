@@ -48,14 +48,15 @@ describe('we should be able to add teams', function () {
         });
         done();
     });
-    describe('add season to league', function () {
-        it('add season', function (done) {
-            var name = "2017 SEASON_MOCK " + shortid();
-            var req = {
-                event_type: admin_methods_1.init_season,
-                leagueZ: mock_league.leagueZ, };
-            name: name;
-        });
+});
+describe('add season to league', function () {
+    it('add season', function (done) {
+        var name = "2017 SEASON_MOCK " + shortid();
+        var req = {
+            event_type: admin_methods_1.init_season,
+            leagueZ: mock_league.leagueZ,
+            name: name
+        };
         ra(req, function (res) {
             c('test has res', res);
         });

@@ -50,6 +50,7 @@ describe('we should be able to add teams', ()=> {
             assert.equal(res.result, 'okgood');
         });
         done();
+    });
 });
 
 describe('add season to league', ()=> {
@@ -57,12 +58,11 @@ describe('add season to league', ()=> {
         let name = "2017 SEASON_MOCK " + shortid();
         let req = {
             event_type: init_season,
-            leagueZ: mock_league.leagueZ,;
+            leagueZ: mock_league.leagueZ,
             name: name
         };
         ra(req, (res)=> {
             c('test has res', res);
-
         });
         done();
     });

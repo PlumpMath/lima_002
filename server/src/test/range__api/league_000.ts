@@ -35,7 +35,7 @@ var game_mocks = {
 }
 
 var league_mocks = {
-    imaginary: []
+    imaginary: [],
     english: {
         name: "ENGLISH PREMEIR LEAGUE",
         leagueZ: null

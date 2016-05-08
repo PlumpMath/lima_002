@@ -13,11 +13,11 @@ var IoRedis = require('ioredis');
 var Orange = IoRedis.createClient();
 var Promise = Bluebird.Promise;
 var shortid = require('shortid');
-var leibniz = require('../constants/admin_interfaces_001');
-var interfaces = {};
-_.assign(interfaces, leibniz);
-var i = interfaces;
-var admin_003_1 = require('../../range_api/admin_003');
+// import * as leibniz from '../constants/admin_interfaces_001'
+// let interfaces = {}
+// _.assign(interfaces, leibniz);
+// const i = interfaces;
+var admin_003_1 = require('../../range__api/admin_003');
 var admin = admin_003_1.default("admin", Orange);
 // Step One ; Assemble Mocks
 var league_mocks = [];
@@ -51,7 +51,9 @@ var SeasonFactory = function (leagueZ) {
         leagueZ: leagueZ
     };
 };
-var GameFactory = ;
-_.forEach([1, 2, 3], {
-    league_mocks: .push(leagueFactory())
+var GameFactory = function (leagueZ, seasonZ, homeTeamZ, visitorTeamZ) {
+    return null;
+};
+_.forEach([1, 2, 3], function (item) {
+    league_mocks.push(leagueFactory());
 });

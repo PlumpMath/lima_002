@@ -33,39 +33,39 @@ exports.rpc__api = rpc__api = function (data: any, cb:any) {
                 cb(res);
             });
             break;
-        },
+        }
         case init_team: {
-            sunspot.init_team()
+            // sunspot.init_team()
 
-        },
+        }
 
         case init_season: {
 
-        },
+        }
         case init_team: {
 
-        },
+        }
         case init_game: {
 
-        },
+        }
         case "aeo" : {
 
-        },
+        }
         case "LlEAGUE_INVITE_PLAYER": {
 
-        },
+        }
         case "LlEAGUE_INIT": {
 
-        },
+        }
         case "CONSUMATE_GAME": { // complete it fill in scores, finalise its outcome
 
         }
         case "ADD_GAME_TO_SEASON": {
 
-        },
+        }
         case "ADD_SEASON_TO_LEAGUE": {
 
-        },
+        }
         case "ADD_TEAM_TO_LEAGUE": {
             sunspot.add_team_001(data, (res) => {
                 c('rpc has ', res);
@@ -73,14 +73,14 @@ exports.rpc__api = rpc__api = function (data: any, cb:any) {
                 cb(res);
             });
             break;
-        },
+        }
         case "league_init": {
             sunspot.league_init(data.name, (res) => {
                 c("rpc has callback with", res);
                 cb(res);
             });
             break;
-        },
+        }
 
     };
 
@@ -95,7 +95,7 @@ exports.default = function (message: string, primus: any) {
         spark.on('data', (data)=> {
             rpc__api(data, (res)=> {
             primus.write(res);
-        }});
+        })})});
         setInterval(()=> {
             counter ++;
             primus.write({stuff: "stuff of hey yeah this is a primus write " + counter });

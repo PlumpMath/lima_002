@@ -10,12 +10,11 @@ const Promise = Bluebird.Promise;
 import shortid = require('shortid');
 import assert = require('assert');
 
-import * as leibniz from '../constants/admin_interfaces_001'
-let interfaces = {}
-_.assign(interfaces, leibniz);
-const i = interfaces;
-
-import sunspot from '../../range_api/admin_003'
+// import * as leibniz from '../constants/admin_interfaces_001'
+// let interfaces = {}
+// _.assign(interfaces, leibniz);
+// const i = interfaces;
+import sunspot from '../../range__api/admin_003'
 
 let admin = sunspot("admin", Orange);
 
@@ -34,32 +33,30 @@ date_mocks.push(new Date());
 date_mocks.push(new Date());
 
 
-let leagueFactory = function(): i.LeagueCore {
+let leagueFactory = function() {
     return {
         leagueZ: uuid.v4(),
-        leagueName: "LeagueName: " + shortid();
+        leagueName: "LeagueName: " + shortid()
     }
 };
-let teamFactory = function(leagueZ): i.TeamCore {
+let teamFactory = function(leagueZ) {
     return {
         teamZ: uuid.v4(),
         teamName: "TeamName: " + shortid(),
         leagueZ: leagueZ
     }
 };
-let SeasonFactory = function(leagueZ): i.SeasonCore {
+let SeasonFactory = function(leagueZ)  {
     return {
-        seasonZ: uuid.v4()
-        seasonName: "SeasonName: " + shortid()
+        seasonZ: uuid.v4(),
+        seasonName: "SeasonName: " + shortid(),
         leagueZ: leagueZ
     }
 };
-let GameFactory = function(leagueZ, seasonZ, homeTeamZ, visitorTeamZ): {
-
+let GameFactory = function(leagueZ, seasonZ, homeTeamZ, visitorTeamZ) {
+    return null
 };
 
-
-
-_.forEach([1,2,3], => {
+_.forEach([1,2,3], (item) => {
     league_mocks.push(leagueFactory());
 });

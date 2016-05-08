@@ -318,6 +318,6 @@ function default_1(message, Orange) {
     var rangeYellow = Promise.promisifyAll(api__000("magnanimity", Orange));
     return sunspot(rangeYellow);
 }
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = default_1;
+exports.__esModule = true;
+exports["default"] = default_1;
 ;
