@@ -2,7 +2,7 @@
 local function cc (aaa)
     redis.call('publish', 'log', 'REDISLOG:' ..aaa)
 end
-cc('hey')
+
 local str_payload = KEYS[1]
 local ticket = cjson.decode(str_payload)
 local event = nil
@@ -13,6 +13,7 @@ local basket2 = {}
 local flag1 = ticket.event_type
 for i,v in ipairs(basket) do
     local cursor = cjson.decode(v)
+    cc(cjson.encode(cursor))
     if cursor.event_type == flag1 then
         basket2[cursor.leagueName] = 'true'
     end

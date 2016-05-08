@@ -38,5 +38,3 @@ else
     -- cc('gone no')
     return 'no'
 end
-
-return 33

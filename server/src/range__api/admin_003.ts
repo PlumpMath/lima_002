@@ -31,13 +31,12 @@ var api__000 =  function (message: any, Orange: any) {
     // Orange.defineCommand('init_game', {
     //     lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_game_003.lua'))
     // });
-    // Orange.defineCommand('init_season', {
-    //     lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_season.lua'))
-    // });
-    // Orange.defineCommand('init_team', {
-    //     lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_team.lua'))
-    // });
-
+    Orange.defineCommand('init_season', {
+        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_season_003.lua'))
+    });
+    Orange.defineCommand('init_team', {
+        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_team.lua'))
+    });
     Orange.defineCommand('init_league', {
         lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_league_003.lua'))
     });
@@ -76,7 +75,8 @@ var sunspot = function (rangeYellow) {
         }));
         rangeYellow.init_season(1, str_payload)
         .then((res)=> {
-            cb(res);
+            let res2 = JSON.parse(res);
+            cb(res2);
         })
         .error((err)=>{
             cb(err);
@@ -90,7 +90,8 @@ var sunspot = function (rangeYellow) {
         }));
         rangeYellow.init_team(1, str_payload)
         .then((res)=> {
-            cb(res);
+            let res2 = JSON.parse(res);
+            cb(res2);
         })
         .error((err)=>{
             cb(err);
@@ -99,22 +100,18 @@ var sunspot = function (rangeYellow) {
 
     // because we generate the leagueZ here in this layer
     const init_league_005 = function (ticket, cb) {
-        c('hereeee')
         let str_payload = JSON.stringify(_.assign(ticket, {
             event_type: 'init_league',
             eventZ: uuid.v4(), // why not? might be useful
             time_stamp: Date.now(),
             leagueZ: uuid.v4()
         }));
-        c('str_pa',str_payload);
-        // c('range', rangeYellow.init_league);
         rangeYellow.init_league(1, str_payload)
         .then((res)=> {
-            c('here2')
-            cb(res);
+            let res2 = JSON.parse(res);
+            cb(res2);
         })
         .error((err) => {
-            c('err', err)
             cb(err);
         })
     };
