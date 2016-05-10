@@ -46,16 +46,15 @@ var season_ticket_factory = function (leagueZ) {
     };
 };
 var game_ticket_factory = function (arq) {
-    {
-        leagueZ, seasonZ, home_teamZ, visitor_teamZ, date;
-    }
-    arq;
+    c('arq', arq);
+    var leagueZ = arq.leagueZ, seasonZ = arq.seasonZ, home_teamZ = arq.home_teamZ, visitor_teamZ = arq.visitor_teamZ, date = arq.date;
+    c('leagueZ', leagueZ);
     return {
         gameName: "GameName: " + shortid(),
         leagueZ: leagueZ,
         seasonzZ: seasonZ,
-        homeTeamZ: homeTeamZ,
-        visitorTeamZ: visitorTeamZ,
+        home_teamZ: home_teamZ,
+        visitor_teamZ: visitor_teamZ,
         date: date
     };
 };
@@ -159,6 +158,7 @@ describe('init games', function () {
                 var game_ticket_1 = game_ticket_factory(arq_1);
                 var game_ticket_2 = game_ticket_factory(arq_2);
                 admin.init_game(game_ticket_1, function (res_1) {
+                    // TODO async parallel this instead of cb hell
                     c('res_1', res_1);
                     admin.init_game(game_ticket_2, function (res_2) {
                         c('res_2', res_2);
