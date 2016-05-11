@@ -12,6 +12,7 @@ var IoRedis = require('ioredis');
 var Orange = IoRedis.createClient();
 var Promise = Bluebird.Promise;
 var shortid = require('shortid');
+var assert = require('assert');
 // import * as leibniz from '../constants/admin_interfaces_001'
 // let interfaces = {}
 // _.assign(interfaces, leibniz);
@@ -52,7 +53,7 @@ var game_ticket_factory = function (arq) {
     return {
         gameName: "GameName: " + shortid(),
         leagueZ: leagueZ,
-        seasonzZ: seasonZ,
+        seasonZ: seasonZ,
         home_teamZ: home_teamZ,
         visitor_teamZ: visitor_teamZ,
         date: date
@@ -161,7 +162,12 @@ describe('init games', function () {
                     // TODO async parallel this instead of cb hell
                     c('res_1', res_1);
                     admin.init_game(game_ticket_2, function (res_2) {
-                        c('res_2', res_2);
+                        c('\n' + 'res_2', res_2);
+                        // assert(res2.result === 'okdone');
+                        assert(res_2.result === 'okdone');
+                        if ((idx === leagues.length - 1) && (idx2 === league.seasons.length - 1)) {
+                            done();
+                        }
                     });
                 });
             });

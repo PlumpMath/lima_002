@@ -47,7 +47,7 @@ var api__000 = function (message, Orange) {
     });
     return Orange;
 };
-var sunspot = function (rangeYellow) {
+var sunspot = function (rangeYellow, event_wrapper_func) {
     var consumate_game_005 = function (ticket, cb) {
         var str_payload = JSON.stringify(ticket);
         rangeYellow.consumate_game(1, str_payload)
@@ -59,12 +59,16 @@ var sunspot = function (rangeYellow) {
         });
     };
     var init_game_005 = function (ticket, cb) {
-        var str_payload = JSON.stringify(_.assign(ticket, {
+        var temp_000 = _.assign(ticket, event_wrapper_func('init_game'));
+        // if lodash docs say can chain objects into the assign
+        // call then can get rid of the temp var above and just
+        // assign twice to ticket in the same call.
+        var str_payload = JSON.stringify(_.assign(temp_000, {
             gameZ: uuid.v4()
         }));
         rangeYellow.init_game(1, str_payload)
             .then(function (res) {
-            cb(res);
+            cb(JSON.parse(res));
         })
             .error(function (err) {
             cb(err);
@@ -140,8 +144,15 @@ var sunspot = function (rangeYellow) {
     };
 };
 function default_1(message, Orange) {
+    var event_wrapper_obj_000 = function (event_type) {
+        return {
+            event_type: event_type,
+            eventZ: uuid.v4(),
+            time_stamp: Date.now()
+        };
+    };
     var rangeYellow = Promise.promisifyAll(api__000("magnanimity", Orange));
-    return sunspot(rangeYellow);
+    return sunspot(rangeYellow, event_wrapper_obj_000);
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = default_1;

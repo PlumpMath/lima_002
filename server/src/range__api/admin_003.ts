@@ -16,6 +16,8 @@ import path = require('path');
 
 // let zz = fs.readFileSync(path.resolve(__dirname, '../../lua/test.lua'));q
 // c('zz', zz.toString());
+
+
 var api__000 =  function (message: any, Orange: any) {
     // if this works do them all like this in the sense of trying to get all the protocols standardised
     // single source of truth way.
@@ -43,9 +45,11 @@ var api__000 =  function (message: any, Orange: any) {
     return Orange;
 };
 
-var sunspot = function (rangeYellow) {
+var sunspot = function (rangeYellow, event_wrapper_func) {
 
-    const consumate_game_005 = function(ticket, cb) {
+
+
+    const consumate_game_005 = function (ticket, cb) {
         let str_payload = JSON.stringify(ticket);
         rangeYellow.consumate_game(1, str_payload)
         .then((res)=> {
@@ -56,13 +60,17 @@ var sunspot = function (rangeYellow) {
         })
     };
 
-    const init_game_005 = function(ticket, cb) {
-        let str_payload = JSON.stringify(_.assign(ticket, {
+    const init_game_005 = function (ticket, cb) {
+        let temp_000 = _.assign(ticket, event_wrapper_func('init_game'));
+        // if lodash docs say can chain objects into the assign
+        // call then can get rid of the temp var above and just
+        // assign twice to ticket in the same call.
+        let str_payload = JSON.stringify(_.assign(temp_000, {
             gameZ: uuid.v4()
         }));
         rangeYellow.init_game(1, str_payload)
         .then((res) => {
-            cb(res);
+            cb(JSON.parse(res));
         })
         .error((err) => {
             cb(err);
@@ -145,8 +153,15 @@ var sunspot = function (rangeYellow) {
 };
 
 export default function (message: any, Orange: any) {
+    const event_wrapper_obj_000 = function (event_type: string) {
+        return {
+            event_type: event_type,
+            eventZ: uuid.v4(),
+            time_stamp: Date.now()
+        }
+    };
     var rangeYellow = Promise.promisifyAll(api__000("magnanimity", Orange));
-    return sunspot(rangeYellow);
+    return sunspot(rangeYellow, event_wrapper_obj_000);
 };
 
 
