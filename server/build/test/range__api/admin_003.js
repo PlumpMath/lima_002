@@ -29,6 +29,9 @@ date_mocks.push(new Date());
 date_mocks.push(new Date());
 date_mocks.push(new Date());
 date_mocks.push(new Date());
+var random_score_gen = function () {
+    return Math.floor(Math.random() * 10);
+};
 var league_ticket_factory = function () {
     return {
         leagueName: "LeagueName: " + shortid()
@@ -59,6 +62,13 @@ var game_ticket_factory = function (arq) {
         date: date
     };
 };
+// let game_consumate_ticket_factory = function (arq) {
+//     // let {gameZ, leagueZ, seasonZ, home_team_final_score, visitor_team_final_score} = arq;
+//     return _.assign(arq, {
+//         date: date,
+//
+//     });
+// };
 _.forEach([1, 2, 3], function (n) {
     league_tickets.push(league_ticket_factory());
 });
@@ -123,6 +133,7 @@ describe('init seasons', function () {
                     c(res);
                     c("Assert: res/ticket should have all these attributes, and result attribute should be 'okgood'");
                     var season = _.omit(res, ['']); //todo complete array of fields to omit
+                    season.games = [];
                     league.seasons.push(season);
                     if ((idx === leagues.length - 1) && (num === 3)) {
                         done();
@@ -161,11 +172,35 @@ describe('init games', function () {
                 admin.init_game(game_ticket_1, function (res_1) {
                     // TODO async parallel this instead of cb hell
                     c('res_1', res_1);
+                    var game = _.omit(res_1, ['']); //todo complete array of fields to omit
+                    season.games.push(game);
                     admin.init_game(game_ticket_2, function (res_2) {
                         c('\n' + 'res_2', res_2);
+                        var game = _.omit(res_2, ['']); //todo complete array of fields to omit
+                        season.games.push(game);
                         // assert(res2.result === 'okdone');
                         assert(res_2.result === 'okdone');
                         if ((idx === leagues.length - 1) && (idx2 === league.seasons.length - 1)) {
+                            done();
+                        }
+                    });
+                });
+            });
+        });
+    });
+});
+describe('consumate_games', function () {
+    it('should be able to consumate games', function (done) {
+        _.forEach(leagues, function (league, idx) {
+            _.forEach(league.seasons, function (season, idx2) {
+                _.forEach(season.games, function (game, idx3) {
+                    var consumate_ticket = _.assign(game, {
+                        home_team_final_score: random_score_gen(),
+                        visitor_team_final_score: random_score_gen()
+                    });
+                    admin.consumate_game(consumate_ticket, function (res) {
+                        c('\n res 393939', res);
+                        if ((idx === leagues.length - 1) && (idx2 === league.seasons.length - 1) && (idx3 === season.games.length - 1)) {
                             done();
                         }
                     });

@@ -6,5 +6,3 @@ cc('hellohohoho')
 
 local payload = KEYS[1]
 cc(payload)
-
-return "hthetehneth"

@@ -27,9 +27,9 @@ var api__000 =  function (message: any, Orange: any) {
     // Orange.defineCommand(aM.consumate_game, {
     //     lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/consumate_game.lua'))
     // });
-    // Orange.defineCommand('consumate_game', {
-    //     lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/consumate_game.lua'))
-    // });
+    Orange.defineCommand('consumate_game', {
+        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/consumate_game.lua'))
+    });
     Orange.defineCommand('init_game', {
         lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_game_003.lua'))
     });
@@ -47,10 +47,8 @@ var api__000 =  function (message: any, Orange: any) {
 
 var sunspot = function (rangeYellow, event_wrapper_func) {
 
-
-
     const consumate_game_005 = function (ticket, cb) {
-        let str_payload = JSON.stringify(ticket);
+        let str_payload = JSON.stringify(_.assign(ticket, event_wrapper_func('consumate_game'));
         rangeYellow.consumate_game(1, str_payload)
         .then((res)=> {
             cb(res);
@@ -124,31 +122,12 @@ var sunspot = function (rangeYellow, event_wrapper_func) {
         })
     };
 
-    // const test = function () {
-    //     // c('heethe')
-    //     // rangeYellow.set('podria', 'podra')
-    //     // // .then((res) => {c('res', res)})
-    //     // // .error((err) => {c('err', err)})
-    //     // rangeYellow.get('podria', (err, res)=> {
-    //     //     c('res, err', res, err);
-    //     // });
-    //
-    //     rangeYellow.test(1, JSON.stringify({hello: "hthenteth"}))
-    //     .then((res) => {
-    //         c('here3');
-    //     })
-    //     .error((err) => {
-    //         c('err', err);
-    //     })
-    // };
-
     return {
         consumate_game: consumate_game_005,
         init_game: init_game_005,
         init_season: init_season_005,
         init_team: init_team_005,
         init_league: init_league_005,
-        // test: test
     }
 };
 
@@ -163,8 +142,3 @@ export default function (message: any, Orange: any) {
     var rangeYellow = Promise.promisifyAll(api__000("magnanimity", Orange));
     return sunspot(rangeYellow, event_wrapper_obj_000);
 };
-
-
-// export default function () {
-//     return 43;
-// };

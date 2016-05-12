@@ -30,9 +30,9 @@ var api__000 = function (message, Orange) {
     // Orange.defineCommand(aM.consumate_game, {
     //     lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/consumate_game.lua'))
     // });
-    // Orange.defineCommand('consumate_game', {
-    //     lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/consumate_game.lua'))
-    // });
+    Orange.defineCommand('consumate_game', {
+        lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/consumate_game.lua'))
+    });
     Orange.defineCommand('init_game', {
         lua: fs.readFileSync(path.resolve(__dirname, '../../lua/world_admin/init_game_003.lua'))
     });
@@ -49,7 +49,7 @@ var api__000 = function (message, Orange) {
 };
 var sunspot = function (rangeYellow, event_wrapper_func) {
     var consumate_game_005 = function (ticket, cb) {
-        var str_payload = JSON.stringify(ticket);
+        var str_payload = JSON.stringify(_.assign(ticket, event_wrapper_func('consumate_game')));
         rangeYellow.consumate_game(1, str_payload)
             .then(function (res) {
             cb(res);
@@ -118,23 +118,6 @@ var sunspot = function (rangeYellow, event_wrapper_func) {
             cb(err);
         });
     };
-    // const test = function () {
-    //     // c('heethe')
-    //     // rangeYellow.set('podria', 'podra')
-    //     // // .then((res) => {c('res', res)})
-    //     // // .error((err) => {c('err', err)})
-    //     // rangeYellow.get('podria', (err, res)=> {
-    //     //     c('res, err', res, err);
-    //     // });
-    //
-    //     rangeYellow.test(1, JSON.stringify({hello: "hthenteth"}))
-    //     .then((res) => {
-    //         c('here3');
-    //     })
-    //     .error((err) => {
-    //         c('err', err);
-    //     })
-    // };
     return {
         consumate_game: consumate_game_005,
         init_game: init_game_005,
@@ -157,6 +140,3 @@ function default_1(message, Orange) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = default_1;
 ;
-// export default function () {
-//     return 43;
-// };

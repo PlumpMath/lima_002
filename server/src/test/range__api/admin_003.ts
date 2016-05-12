@@ -32,6 +32,10 @@ date_mocks.push(new Date());
 date_mocks.push(new Date());
 
 
+let random_score_gen = function () {
+    return Math.floor(Math.random() * 10);
+};
+
 let league_ticket_factory = function() {
     return {
         leagueName: "LeagueName: " + shortid()
@@ -53,7 +57,6 @@ let game_ticket_factory = function (arq) {
     c('arq', arq);
     let {leagueZ, seasonZ, home_teamZ, visitor_teamZ, date} = arq;
     c('leagueZ', leagueZ);
-
     return {
         gameName: "GameName: " + shortid(),
         leagueZ: leagueZ,
@@ -63,6 +66,14 @@ let game_ticket_factory = function (arq) {
         date: date
     }
 };
+
+// let game_consumate_ticket_factory = function (arq) {
+//     // let {gameZ, leagueZ, seasonZ, home_team_final_score, visitor_team_final_score} = arq;
+//     return _.assign(arq, {
+//         date: date,
+//
+//     });
+// };
 
 _.forEach([1,2,3], (n) => {
     league_tickets.push(league_ticket_factory());
@@ -129,6 +140,7 @@ describe('init seasons', () => {
                     c(res);
                     c("Assert: res/ticket should have all these attributes, and result attribute should be 'okgood'");
                     let season = _.omit(res, ['']); //todo complete array of fields to omit
+                    season.games = [];
                     league.seasons.push(season);
                     if ((idx === leagues.length - 1) && (num === 3)) {done();}
                 });
@@ -166,8 +178,12 @@ describe('init games', () => {
                 admin.init_game(game_ticket_1, (res_1) => {
                     // TODO async parallel this instead of cb hell
                     c('res_1', res_1);
+                    let game = _.omit(res_1, ['']); //todo complete array of fields to omit
+                    season.games.push(game);
                     admin.init_game(game_ticket_2, (res_2) => {
                         c('\n' + 'res_2', res_2);
+                        let game = _.omit(res_2, ['']); //todo complete array of fields to omit
+                        season.games.push(game);
                         // assert(res2.result === 'okdone');
                         assert(res_2.result === 'okdone');
                         if ((idx === leagues.length - 1) && (idx2 === league.seasons.length - 1)) {done();}
@@ -177,6 +193,26 @@ describe('init games', () => {
         });
     });
 });
+
+describe('consumate_games', () => {
+    it('should be able to consumate games', (done) => {
+        _.forEach(leagues, (league, idx) => {
+            _.forEach(league.seasons, (season, idx2) => {
+                _.forEach(season.games, (game, idx3) => {
+                    let consumate_ticket = _.assign(game, {
+                        home_team_final_score: random_score_gen(),
+                        visitor_team_final_score: random_score_gen()
+                    });
+                    admin.consumate_game(consumate_ticket, (res) => {
+                        c('\n res 393939', res);
+
+                        if ((idx === leagues.length - 1) && (idx2 === league.seasons.length - 1) && (idx3 === season.games.length - 1)) {done();}
+                    });
+                });
+            });
+        });
+    })
+})
 
 
 
